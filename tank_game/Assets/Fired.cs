@@ -35,7 +35,7 @@ public class Fired : MonoBehaviour
     void Update()
     {
         timer -= Time.deltaTime;
-        transform.position += Vector3.forward * Time.deltaTime * ShellSpeed;
+        transform.position += transform.forward * Time.deltaTime * ShellSpeed;
     }
 
     void LateUpdate()

@@ -47,7 +47,7 @@ public class s_playerController : MonoBehaviour
         if (Input.GetButtonDown("Fire1"))
         {
             Shell.GetComponent<Fired>().Owner = Player;
-            Instantiate(Shell, FirePoint.transform.position, transform.rotation);
+            Instantiate(Shell, FirePoint.transform.position, TurretTurn.transform.rotation);
         }
         if (Input.GetButton("Vertical"))
         {
