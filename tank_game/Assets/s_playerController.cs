@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class s_playerController : MonoBehaviour
 {
-    [Range(1,4)]
+    [Range(1,5)]
     public int Player;
 
     public GameObject TankBody, Turret, TurretTurn, FirePoint, Spawner, Shell;
@@ -19,36 +19,44 @@ public class s_playerController : MonoBehaviour
 
     string colour, controls;
 
-    public Material Blue, Red, Yellow, Green, Dead;
+    public Color Blue, Red, Yellow, Green, Dead;
+
+    public Renderer Render;
+
+    GameManager gM;
 
     // Start is called before the first frame update
     void Start()
     {
+        gM = FindObjectOfType<GameManager>();
         switch (Player)
         {
             case 1:
                 colour = "blue";
                 controls = "p1_";
-                TankBody.gameObject.GetComponent<Renderer>().material = Blue;
-                Turret.gameObject.GetComponent<Renderer>().material = Blue;
+                TankBody.gameObject.GetComponent<Renderer>().material.color = Blue;
+                Turret.gameObject.GetComponent<Renderer>().material.color = Blue;
                 break;
             case 2:
                 colour = "red";
                 controls = "p2_";
-                TankBody.gameObject.GetComponent<Renderer>().material = Red;
-                Turret.gameObject.GetComponent<Renderer>().material = Red;
+                TankBody.gameObject.GetComponent<Renderer>().material.color = Red;
+                Turret.gameObject.GetComponent<Renderer>().material.color = Red;
                 break;
             case 3:
                 controls = "p3_";
                 colour = "yellow";
-                TankBody.gameObject.GetComponent<Renderer>().material = Yellow;
-                Turret.gameObject.GetComponent<Renderer>().material = Yellow;
+                TankBody.gameObject.GetComponent<Renderer>().material.color = Yellow;
+                Turret.gameObject.GetComponent<Renderer>().material.color = Yellow;
                 break;
             case 4:
                 controls = "p4_";
                 colour = "green";
-                TankBody.gameObject.GetComponent<Renderer>().material = Green;
-                Turret.gameObject.GetComponent<Renderer>().material = Green;
+                TankBody.gameObject.GetComponent<Renderer>().material.color = Green;
+                Turret.gameObject.GetComponent<Renderer>().material.color = Green;
+                break;
+            case 5:
+                Turret.gameObject.GetComponent<Renderer>().material.color = Dead;
                 break;
             default:
                 break;
@@ -60,38 +68,76 @@ public class s_playerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown(controls + "Fire"))
+        if (isAlive && gM.GameState == GameManager.GameStates.Game)
         {
-            Shell.GetComponent<Fired>().Owner = Player;
-            Instantiate(Shell, FirePoint.transform.position, TurretTurn.transform.rotation);
+            if (Input.GetButtonDown(controls + "Fire"))
+            {
+                Shell.GetComponent<Fired>().Owner = Player;
+                Instantiate(Shell, FirePoint.transform.position, TurretTurn.transform.rotation);
+            }
+
+            if (Input.GetAxis(controls + "Vertical") >= .9f || Input.GetAxis(controls + "Vertical") <= -.9f)
+                transform.position += transform.forward * Time.deltaTime * movementSpeed * -Input.GetAxis(controls + "Vertical");
+
+            if (Input.GetAxis(controls + "Horizontal") >= .2f || Input.GetAxis(controls + "Horizontal") <= -.25f)
+                transform.Rotate(new Vector3(0, rotationSpeed * Time.deltaTime * Input.GetAxis(controls + "Horizontal"), 0));
+
+            if (Input.GetButton(controls + "Turret_Right"))
+            {
+                TurretTurn.transform.Rotate(new Vector3(0, turretRotate * Time.deltaTime * 1, 0));
+            }
+            if (Input.GetButton(controls + "Turret_Left"))
+            {
+                TurretTurn.transform.Rotate(new Vector3(0, turretRotate * Time.deltaTime * -1, 0));
+            }
         }
-
-        if (Input.GetAxis(controls + "Vertical") >= .9f || Input.GetAxis(controls + "Vertical") <= -.9f)
-            transform.position += transform.forward * Time.deltaTime * movementSpeed * -Input.GetAxis(controls + "Vertical");
-
-        if (Input.GetAxis(controls + "Horizontal") >= .2f || Input.GetAxis(controls + "Horizontal") <= -.25f)
-            transform.Rotate(new Vector3(0, rotationSpeed * Time.deltaTime * Input.GetAxis(controls + "Horizontal"), 0));
-
-        if (Input.GetButton(controls + "Turret_Right"))
+        else if (isAlive == false && gM.GameState == GameManager.GameStates.Game)
         {
-            TurretTurn.transform.Rotate(new Vector3(0, turretRotate * Time.deltaTime * 1, 0));
+            RespawnTimer -= Time.deltaTime;
+            if (RespawnTimer < 0)
+            {
+                Respawn();
+            }
         }
-        if (Input.GetButton(controls + "Turret_Left"))
-        {
-            TurretTurn.transform.Rotate(new Vector3(0, turretRotate * Time.deltaTime * -1, 0));
-        }
-
-        Debug.Log(controls + "Horizontal");
+        
     }
 
     public void Death()
     {
-        TankBody.gameObject.GetComponent<Renderer>().material = Dead;
-        Turret.gameObject.GetComponent<Renderer>().material = Dead;
+        TankBody.gameObject.GetComponent<Renderer>().material.color = Dead;
+        Turret.gameObject.GetComponent<Renderer>().material.color = Dead;
+        isAlive = false;
     }
 
     public void Respawn()
     {
-
+        isAlive = true;
+        RespawnTimer = 3f;
+        switch (Player)
+        {
+            case 1:
+                TankBody.gameObject.GetComponent<Renderer>().material.color = Blue;
+                Turret.gameObject.GetComponent<Renderer>().material.color = Blue;
+                break;
+            case 2:
+                TankBody.gameObject.GetComponent<Renderer>().material.color = Red;
+                Turret.gameObject.GetComponent<Renderer>().material.color = Red;
+                break;
+            case 3:
+                TankBody.gameObject.GetComponent<Renderer>().material.color = Yellow;
+                Turret.gameObject.GetComponent<Renderer>().material.color = Yellow;
+                break;
+            case 4:
+                TankBody.gameObject.GetComponent<Renderer>().material.color = Green;
+                Turret.gameObject.GetComponent<Renderer>().material.color = Green;
+                break;
+            case 5:
+                Turret.gameObject.GetComponent<Renderer>().material.color = Dead;
+                break;
+            default:
+                break;
+        }
+        transform.position = Spawner.transform.position;
+        transform.rotation = Spawner.transform.rotation;
     }
 }
