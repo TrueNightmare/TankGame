@@ -35,9 +35,31 @@ public class s_follow_players : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isBlue)
+        if (isBlue == true && BluePlayer == false)
         {
             BluePlayer = GameObject.Find("p_player_blue(Clone)");
         }
+        if (isRed == true && RedPlayer == false)
+        {
+            BluePlayer = GameObject.Find("p_player_red(Clone)");
+        }
+        if (isGreen == true && GreenPlayer == false)
+        {
+            BluePlayer = GameObject.Find("p_player_Green(Clone)");
+        }
+        if (isYellow == true && YellowPlayer == false)
+        {
+            BluePlayer = GameObject.Find("p_player_Yellow(Clone)");
+        }
+    }
+
+    void LateUpdate()
+    {
+        Vector3 centerPoint = GetCenterPoint();
+    }
+
+    Vector3 GetCenterPoint()
+    {
+        return Vector3.zero;
     }
 }

@@ -18,7 +18,7 @@ public class s_spawnPlayer : MonoBehaviour
 
         }
 
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetButtonDown("p1_start"))
         {
             SpawnPlayer();
         }

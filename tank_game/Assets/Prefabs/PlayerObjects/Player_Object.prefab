@@ -88,9 +88,14 @@ MonoBehaviour:
   isAlive: 0
   Lives: 1
   Score: 0
-  movementSpeed: 5
-  rotationSpeed: 500
+  movementSpeed: 2
+  rotationSpeed: 250
   turretRotate: 250
+  Blue: {fileID: 2100000, guid: cc660da1f395d4e45982b69804c26fbb, type: 2}
+  Red: {fileID: 2100000, guid: 64ad6066e53e89248b6a0a04481ca01c, type: 2}
+  Yellow: {fileID: 2100000, guid: 530cb2560e210f04790f4e2922939501, type: 2}
+  Green: {fileID: 2100000, guid: b83db0e53257e7747b4e6db2c87103b6, type: 2}
+  Dead: {fileID: 2100000, guid: c84e9512e28d0e54e956f0f9be9ed2f0, type: 2}
 --- !u!65 &1247248060613076118
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -52,7 +52,7 @@ public class Fired : MonoBehaviour
         {
             if (collision.gameObject.GetComponent<s_playerController>().Player != Owner)
             {
-
+                collision.gameObject.GetComponent<s_playerController>().Death();
             }
         }
 
