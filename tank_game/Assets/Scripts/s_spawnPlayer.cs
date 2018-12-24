@@ -9,16 +9,23 @@ public class s_spawnPlayer : MonoBehaviour
 
     public bool isGameLive, isPlayerAlive = false;
     public bool RunTest = false;
+    GameManager gM;
+
+    void Start()
+    {
+        gM = GameObject.Find("GameManager").GetComponent<GameManager>();
+    }
 
     // Update is called once per frame
     void Update()
     {
+
         if (isGameLive && isPlayerAlive == false)
         {
 
         }
 
-        if (Input.GetButtonDown("p1_start"))
+        if (gM.GameState == GameManager.GameStates.PreGame && isPlayerAlive == false)
         {
             SpawnPlayer();
         }

@@ -98,9 +98,9 @@ NavMeshSettings:
     serializedVersion: 2
     agentTypeID: 0
     agentRadius: 0.5
-    agentHeight: 2
-    agentSlope: 45
-    agentClimb: 0.4
+    agentHeight: 1
+    agentSlope: 0
+    agentClimb: 0
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     minRegionArea: 2
@@ -111,7 +111,7 @@ NavMeshSettings:
     accuratePlacement: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: afc951a713442d94fa344f36b67a914c, type: 2}
 --- !u!4 &49103690 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3879544246963872449, guid: 9de91763f14070e478e6adf40c119258,
@@ -928,6 +928,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2702280225312396463, guid: cf77f85bbdee44c41bec8ee1a3be6465,
+        type: 3}
+      propertyPath: GameState
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2702280225312396463, guid: cf77f85bbdee44c41bec8ee1a3be6465,
+        type: 3}
+      propertyPath: CountDownTimer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2702280225312396463, guid: cf77f85bbdee44c41bec8ee1a3be6465,
+        type: 3}
+      propertyPath: Minutes
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf77f85bbdee44c41bec8ee1a3be6465, type: 3}

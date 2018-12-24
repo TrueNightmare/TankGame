@@ -61,8 +61,11 @@ public class s_playerController : MonoBehaviour
             default:
                 break;
         }
-        Spawner = GameObject.Find(colour + "_spawnpoint");
-        Spawner.GetComponent<s_spawnPlayer>().isPlayerAlive = false;
+        if (gM.GameState == GameManager.GameStates.PreGame)
+        {
+            Spawner = GameObject.Find(colour + "_spawnpoint");
+        }
+
     }
 
     // Update is called once per frame

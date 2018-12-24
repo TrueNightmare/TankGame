@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class s_player_connected : MonoBehaviour
 {
-    float Timer = 5f;
+    float Timer = 3f;
     bool Started = false;
 
     public Text p1t, p2t, p3t, p4t;
@@ -24,14 +24,26 @@ public class s_player_connected : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (Started)
+        {
+            Timer -= Time.deltaTime;
+            if (Timer < 0)
+            {
+                gameObject.SetActive(false);
+                Started = false;
+                Timer = 3f;
+            }
+        }
     }
 
-    void ControllerEnabed(int player)
+    public void ControllerEnabed()
     {
+        gameObject.SetActive(true);
+        Started = true;
         if (FindObjectOfType<GameManager>().GameState == GameManager.GameStates.Menus)
         {
             gameObject.SetActive(true);
+            Timer = 3f;
             if (gM.isPlayer1)
             {
                 p1t.color = blue;
