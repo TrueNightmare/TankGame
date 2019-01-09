@@ -9,9 +9,9 @@ public class s_playerController : MonoBehaviour
 
     public GameObject TankBody, Turret, TurretTurn, FirePoint, Spawner, Shell;
 
-    public bool isAlive = false;
+    public bool isAlive = false, isAi = false;
 
-    public int Lives = 1, Score;
+    public int Lives = 1, Score, RoundsWon;
 
     public float movementSpeed = 5f, rotationSpeed = 500f, turretRotate = 250f;
 
@@ -25,9 +25,12 @@ public class s_playerController : MonoBehaviour
 
     GameManager gM;
 
+    s_AIManager AI;
+
     // Start is called before the first frame update
     void Start()
     {
+        AI = GetComponent<s_AIManager>();
         gM = FindObjectOfType<GameManager>();
         switch (Player)
         {
@@ -36,24 +39,33 @@ public class s_playerController : MonoBehaviour
                 controls = "p1_";
                 TankBody.gameObject.GetComponent<Renderer>().material.color = Blue;
                 Turret.gameObject.GetComponent<Renderer>().material.color = Blue;
+
+                if (gM.isPlayer1 == false)
+                    isAi = true;
                 break;
             case 2:
                 colour = "red";
                 controls = "p2_";
                 TankBody.gameObject.GetComponent<Renderer>().material.color = Red;
                 Turret.gameObject.GetComponent<Renderer>().material.color = Red;
+                if (gM.isPlayer2 == false)
+                    isAi = true;
                 break;
             case 3:
                 controls = "p3_";
                 colour = "yellow";
                 TankBody.gameObject.GetComponent<Renderer>().material.color = Yellow;
                 Turret.gameObject.GetComponent<Renderer>().material.color = Yellow;
+                if (gM.isPlayer3 == false)
+                    isAi = true;
                 break;
             case 4:
                 controls = "p4_";
                 colour = "green";
                 TankBody.gameObject.GetComponent<Renderer>().material.color = Green;
                 Turret.gameObject.GetComponent<Renderer>().material.color = Green;
+                if (gM.isPlayer4 == false)
+                    isAi = true;
                 break;
             case 5:
                 Turret.gameObject.GetComponent<Renderer>().material.color = Dead;
@@ -94,7 +106,9 @@ public class s_playerController : MonoBehaviour
                 TurretTurn.transform.Rotate(new Vector3(0, turretRotate * Time.deltaTime * -1, 0));
             }
         }
-        else if (isAlive == false && gM.GameState == GameManager.GameStates.Game)
+
+        //For when the game mode to free for all
+        if (isAlive == false && gM.GameState == GameManager.GameStates.Game && (gM.GameMode == GameManager.GameModes.FreeForAll || gM.GameMode == GameManager.GameModes.Torrentment))
         {
             RespawnTimer -= Time.deltaTime;
             if (RespawnTimer < 0)
@@ -102,7 +116,30 @@ public class s_playerController : MonoBehaviour
                 Respawn();
             }
         }
-        
+
+        //For when the game is elimiation
+        if (isAlive == false && gM.GameMode == GameManager.GameModes.Elimiation)
+        {
+            switch (Player)
+            {
+                case 1:
+                    gM.isPlayer1Alive = false;
+                    break;
+                case 2:
+                    gM.isPlayer2Alive = false;
+                    break;
+                case 3:
+                    gM.isPlayer3Alive = false;
+                    break;
+                case 4:
+                    gM.isPlayer4Alive = false;
+                    break;
+                case 5:
+                    break;
+                default:
+                    break;
+            }
+        } 
     }
 
     public void Death()

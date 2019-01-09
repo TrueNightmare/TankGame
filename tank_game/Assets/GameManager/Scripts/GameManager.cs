@@ -25,12 +25,19 @@ public class GameManager : MonoBehaviour
     public Scene[] Levels2PlayerVS;
     public Scene[] Levels3PlayerVS;
     public Scene[] Levels4PlayerVS;
+
+    string Winner, WinningScore;
     //MainMenu Only
 
     public GameObject PlayerConnected;
     public TextMeshProUGUI CountDownScreenText;
-    
+
     //end
+
+    [SerializeField]
+    [Tooltip("Should be All Game Canvus")]
+    public GameObject[] CanvasObjects;
+
 
     public static GameManager instance;
     // Use this for initialization
@@ -88,6 +95,7 @@ public class GameManager : MonoBehaviour
             case GameStates.none:
                 break;
             case GameStates.Start:
+                CanvasChanger();
                 if (Input.GetButtonDown("p1_start"))
                 {
                     isPlayer1 = !isPlayer1;
@@ -114,9 +122,11 @@ public class GameManager : MonoBehaviour
                 }
                 break;
             case GameStates.Menus:
+                CanvasChanger();
                 LoadMenuComponets();
                 break;
             case GameStates.Game:
+                CanvasChanger();
                 MatchTimer -= Time.deltaTime;
                 switch (GameMode)
                 {
@@ -131,36 +141,15 @@ public class GameManager : MonoBehaviour
                     case GameModes.Elimiation:
 
                         PlayerCount = 0;
-                        if (isPlayer1Alive == true)
-                        {
-                            PlayerCount++;
-                        }
-                        if (isPlayer2Alive == true)
-                        {
-                            PlayerCount++;
-                        }
-                        if (isPlayer3Alive == true)
-                        {
-                            PlayerCount++;
-                        }
-                        if (isPlayer4Alive == true)
-                        {
-                            PlayerCount++;
-                        }
-
-                        if (PlayerCount <= 1)
-                        {
-                            GameState = GameStates.EndGame;
-                        }
+                        TestToSeeHowManyAreLive();
 
                         break;
                     case GameModes.Torrentment:
                         break;
                 }
-                
-                
                 break;
             case GameStates.PreGame:
+                CanvasChanger();
                 CountDownScreenText = GameObject.Find("CountDown_Screen").GetComponent<TextMeshProUGUI>();
                 CountDownTimer += Time.deltaTime;
                 if (CountDownTimer > 1)
@@ -193,9 +182,37 @@ public class GameManager : MonoBehaviour
                         default:
                             break;
                     }
+
+                    if (GameMode == GameManager.GameModes.Elimiation)
+                    {
+                        TestToSeeHowManyAreLive();
+                    }
                 }
                 break;
             case GameStates.EndGame:
+                CanvasChanger();
+                switch (GameMode)
+                {
+                    case GameModes.FreeForAll:
+                        CountDownScreenText.text = "Winner! Player " + Winner + " With " + WinningScore + " Points";
+                        break;
+                    case GameModes.Elimiation:
+                        TestToSeeHowManyAreLive();
+                        if (PlayerCount > 1)
+                        {
+                            CountDownScreenText.text = "Draw";
+                        }
+                        else
+                        {
+                            CountDownScreenText.text = "The Lone Survivor \n Player " + Winner;
+                        }
+                        
+                        break;
+                    case GameModes.Torrentment:
+                        break;
+                    default:
+                        break;
+                }
                 break;
             default:
                 break;
@@ -219,9 +236,11 @@ public class GameManager : MonoBehaviour
     {
         MatchTimer = Minutes * 60f;
     }
-    public void ScoreLimitAchived()
+    public void ScoreLimitAchived(int Player, int Score)
     {
         ScoreLimitReached = !ScoreLimitReached;
+        Winner = Player.ToString();
+        WinningScore = Score.ToString();
     }
 
     public bool ReturnPlayerOnlineStatesAI(int Player)
@@ -241,5 +260,61 @@ public class GameManager : MonoBehaviour
         }
 
         return true;
+    }
+
+    void TestToSeeHowManyAreLive()
+    {
+        PlayerCount = 0;
+        if (isPlayer1Alive == true)
+        {
+            PlayerCount++;
+        }
+        if (isPlayer2Alive == true)
+        {
+            PlayerCount++;
+        }
+        if (isPlayer3Alive == true)
+        {
+            PlayerCount++;
+        }
+        if (isPlayer4Alive == true)
+        {
+            PlayerCount++;
+        }
+
+        if (PlayerCount <= 1)
+        {
+            GameState = GameStates.EndGame;
+        }
+    }
+    
+    void CanvasChanger()
+    {
+        for (int i = 0; i < CanvasObjects.Length; i++)
+        {
+            CanvasObjects[i].SetActive(false);
+        }
+
+        switch (GameState)
+        {
+            case GameStates.none:
+                break;
+            case GameStates.Start:
+                CanvasObjects[0].SetActive(true); //Start Menu
+                break;
+            case GameStates.Menus:
+                break;
+            case GameStates.Game:
+                
+                break;
+            case GameStates.PreGame:
+                CanvasObjects[2].SetActive(true);
+                break;
+            case GameStates.EndGame:
+                CanvasObjects[2].SetActive(true);
+                break;
+            default:
+                break;
+        }
     }
 }

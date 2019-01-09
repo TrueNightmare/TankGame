@@ -27,7 +27,7 @@ public class s_spawnPlayer : MonoBehaviour
 
         if (gM.GameState == GameManager.GameStates.PreGame && isPlayerAlive == false)
         {
-            SpawnPlayer();
+            //SpawnPlayer();
         }
 
     }
@@ -36,7 +36,6 @@ public class s_spawnPlayer : MonoBehaviour
     {
             isPlayerAlive = true;
             SpawningPlayer.GetComponent<s_playerController>().isAlive = true;
-            Debug.Log("Player 1 Spawned");
-            Instantiate(SpawningPlayer, transform);
+            Instantiate(SpawningPlayer, transform.position, transform.rotation);
     }
 }

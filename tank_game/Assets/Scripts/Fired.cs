@@ -70,7 +70,7 @@ public class Fired : MonoBehaviour
 
                     if (OwnerTank.GetComponent<s_playerController>().Score >= gM.ScoreLimit)
                     {
-                        gM.ScoreLimitAchived();
+                        gM.ScoreLimitAchived(Owner, OwnerTank.GetComponent<s_playerController>().Score);
                     }
                 }
             }
