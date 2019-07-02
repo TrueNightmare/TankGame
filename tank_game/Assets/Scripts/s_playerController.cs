@@ -118,28 +118,28 @@ public class s_playerController : MonoBehaviour
         }
 
         //For when the game is elimiation
-        if (isAlive == false && gM.GameMode == GameManager.GameModes.Elimiation)
-        {
-            switch (Player)
-            {
-                case 1:
-                    gM.isPlayer1Alive = false;
-                    break;
-                case 2:
-                    gM.isPlayer2Alive = false;
-                    break;
-                case 3:
-                    gM.isPlayer3Alive = false;
-                    break;
-                case 4:
-                    gM.isPlayer4Alive = false;
-                    break;
-                case 5:
-                    break;
-                default:
-                    break;
-            }
-        } 
+        //if (isAlive == false && gM.GameMode == GameManager.GameModes.Elimiation)
+        //{
+        //    switch (Player)
+        //    {
+        //        case 1:
+        //            gM.isPlayer1Alive = false;
+        //            break;
+        //        case 2:
+        //            gM.isPlayer2Alive = false;
+        //            break;
+        //        case 3:
+        //            gM.isPlayer3Alive = false;
+        //            break;
+        //        case 4:
+        //            gM.isPlayer4Alive = false;
+        //            break;
+        //        case 5:
+        //            break;
+        //        default:
+        //            break;
+        //    }
+        //} 
     }
 
     public void Death()

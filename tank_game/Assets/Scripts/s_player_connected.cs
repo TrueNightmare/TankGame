@@ -5,88 +5,62 @@ using UnityEngine.UI;
 
 public class s_player_connected : MonoBehaviour
 {
-    float Timer = 3f;
-    bool Started = false;
-
-    public Text p1t, p2t, p3t, p4t;
-    public Image p1i, p2i, p3i, p4i;
-    public Color blue, red, yellow, green, black;
-
-    GameManager gM;
+    [Header("Development Only")]
+    public Text[] PlayerText = new Text[4];
+    public Image[] PlayerImage = new Image[4];
 
     // Start is called before the first frame update
     void Start()
     {
-        gameObject.SetActive(false);
-        gM = FindObjectOfType<GameManager>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Started)
+        if (GameManager.Instance.isPlayer1)
         {
-            Timer -= Time.deltaTime;
-            if (Timer < 0)
-            {
-                gameObject.SetActive(false);
-                Started = false;
-                Timer = 3f;
-            }
+            PlayerText[0].color = GameManager.Instance.PlayerColours[0];
+            PlayerImage[0].color = GameManager.Instance.PlayerColours[0];
         }
-    }
-
-    public void ControllerEnabed()
-    {
-        gameObject.SetActive(true);
-        Started = true;
-        if (FindObjectOfType<GameManager>().GameState == GameManager.GameStates.Menus)
+        else
         {
-            gameObject.SetActive(true);
-            Timer = 3f;
-            if (gM.isPlayer1)
-            {
-                p1t.color = blue;
-                p1i.color = blue;
-            }
-            else
-            {
-                p1t.color = black;
-                p1i.color = black;
-            }
-
-            if (gM.isPlayer2)
-            {
-                p2t.color = red;
-                p2i.color = red;
-            }
-            else
-            {
-                p2t.color = black;
-                p2i.color = black;
-            }
-
-            if (gM.isPlayer3)
-            {
-                p3t.color = yellow;
-                p3i.color = yellow;
-            }
-            else
-            {
-                p3t.color = black;
-                p3i.color = black;
-            }
-
-            if (gM.isPlayer4)
-            {
-                p4t.color = green;
-                p4i.color = green;
-            }
-            else
-            {
-                p4t.color = black;
-                p4i.color = black;
-            }
+            PlayerText[0].color = Color.black;
+            PlayerImage[0].color = Color.black;
         }
+
+        if (GameManager.Instance.isPlayer2)
+        {
+            PlayerText[1].color = GameManager.Instance.PlayerColours[1];
+            PlayerImage[1].color = GameManager.Instance.PlayerColours[1];
+        }
+        else
+        {
+            PlayerText[1].color = Color.black;
+            PlayerImage[1].color = Color.black;
+        }
+
+        if (GameManager.Instance.isPlayer3)
+        {
+            PlayerText[2].color = GameManager.Instance.PlayerColours[2];
+            PlayerImage[2].color = GameManager.Instance.PlayerColours[2];
+        }
+        else
+        {
+            PlayerText[2].color = Color.black;
+            PlayerImage[2].color = Color.black;
+        }
+
+        if (GameManager.Instance.isPlayer4)
+        {
+            PlayerText[3].color = GameManager.Instance.PlayerColours[3];
+            PlayerImage[3].color = GameManager.Instance.PlayerColours[3];
+        }
+        else
+        {
+            PlayerText[3].color = Color.black;
+            PlayerImage[3].color = Color.black;
+        }
+
     }
 }

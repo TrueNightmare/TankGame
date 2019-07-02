@@ -68,10 +68,10 @@ public class Fired : MonoBehaviour
                     OwnerTank.GetComponent<s_playerController>().Score++;
                     collision.gameObject.GetComponent<s_playerController>().Lives--;
 
-                    if (OwnerTank.GetComponent<s_playerController>().Score >= gM.ScoreLimit)
-                    {
-                        gM.ScoreLimitAchived(Owner, OwnerTank.GetComponent<s_playerController>().Score);
-                    }
+                    //if (OwnerTank.GetComponent<s_playerController>().Score >= gM.ScoreLimit)
+                    //{
+                    //    gM.ScoreLimitAchived(Owner, OwnerTank.GetComponent<s_playerController>().Score);
+                    //}
                 }
             }
         }
