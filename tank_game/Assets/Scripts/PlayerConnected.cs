@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class s_player_connected : MonoBehaviour
+public class PlayerConnected : MonoBehaviour
 {
     [Header("Development Only")]
     public Text[] PlayerText = new Text[4];

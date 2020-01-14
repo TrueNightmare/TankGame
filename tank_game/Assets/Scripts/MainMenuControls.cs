@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class s_MainMenuControls : MonoBehaviour
+public class MainMenuControls : MonoBehaviour
 {
     [Header("MainMenu")]
     public GameObject MainMenu;

@@ -2,7 +2,7 @@
 //using System.Collections.Generic;
 //using UnityEngine;
 
-//public class s_LockLocation : MonoBehaviour
+//public class LockLocation : MonoBehaviour
 //{
 //    float x, y, z;
 //    // Start is called before the first frame update

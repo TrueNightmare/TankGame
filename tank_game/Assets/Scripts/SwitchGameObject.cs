@@ -18,7 +18,7 @@ public class SwitchGameObject : MonoBehaviour
     {
         foreach (var item in Buttons)
         {
-            if (Input.GetButtonDown(item) && AnyButton == false)
+            if (Input.GetButtonDown(item))
             {
                 SwitchTo.SetActive(true);
                 gameObject.SetActive(false);

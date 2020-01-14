@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class s_follow_players : MonoBehaviour
+public class FollowPlayer : MonoBehaviour
 {
     public float[] padding;
     Vector3 Center = new Vector3(0, 0, 0);
@@ -14,6 +14,7 @@ public class s_follow_players : MonoBehaviour
     void Start()
     {
         StartPoint = transform.position;
+        //This should not be done this way... why did I do this?        
         if (GameObject.Find("blue_spawnpoint") == true)
         {
             isBlue = true;
@@ -35,6 +36,7 @@ public class s_follow_players : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //This should not be done this way... why did I do this?
         if (isBlue == true && BluePlayer == false)
         {
             BluePlayer = GameObject.Find("p_player_blue(Clone)");

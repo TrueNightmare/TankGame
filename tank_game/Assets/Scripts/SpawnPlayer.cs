@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class s_spawnPlayer : MonoBehaviour
+public class SpawnPlayer : MonoBehaviour
 {
     [SerializeField]
     GameObject SpawningPlayer;
@@ -13,7 +13,7 @@ public class s_spawnPlayer : MonoBehaviour
 
     void Start()
     {
-        gM = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gM = GameManager.Instance;
     }
 
     // Update is called once per frame
@@ -25,17 +25,17 @@ public class s_spawnPlayer : MonoBehaviour
 
         }
 
-        if (gM.GameState == GameManager.GameStates.PreGame && isPlayerAlive == false)
+        if (GameManager.Instance.GameState == GameManager.GameStates.PreGame && isPlayerAlive == false)
         {
             //SpawnPlayer();
         }
 
     }
 
-    void SpawnPlayer()
+    void SpawnePlayerFunction()
     {
             isPlayerAlive = true;
-            SpawningPlayer.GetComponent<s_playerController>().isAlive = true;
+            SpawningPlayer.GetComponent<PlayerController>().isAlive = true;
             Instantiate(SpawningPlayer, transform.position, transform.rotation);
     }
 }

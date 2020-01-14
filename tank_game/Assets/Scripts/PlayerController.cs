@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class s_playerController : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     [Range(1,5)]
     public int Player;
@@ -25,20 +25,21 @@ public class s_playerController : MonoBehaviour
 
     GameManager gM;
 
-    s_AIManager AI;
+    AIManager AI;
 
     // Start is called before the first frame update
     void Start()
     {
-        AI = GetComponent<s_AIManager>();
+        AI = GetComponent<AIManager>();
         gM = FindObjectOfType<GameManager>();
+        Render = GetComponent<Renderer>();
         switch (Player)
         {
             case 1:
                 colour = "blue";
                 controls = "p1_";
-                TankBody.gameObject.GetComponent<Renderer>().material.color = Blue;
-                Turret.gameObject.GetComponent<Renderer>().material.color = Blue;
+                Render.material.color = Blue;
+                Render.material.color = Blue;
 
                 if (gM.isPlayer1 == false)
                     isAi = true;
@@ -46,29 +47,29 @@ public class s_playerController : MonoBehaviour
             case 2:
                 colour = "red";
                 controls = "p2_";
-                TankBody.gameObject.GetComponent<Renderer>().material.color = Red;
-                Turret.gameObject.GetComponent<Renderer>().material.color = Red;
+                Render.material.color = Red;
+                Render.material.color = Red;
                 if (gM.isPlayer2 == false)
                     isAi = true;
                 break;
             case 3:
                 controls = "p3_";
                 colour = "yellow";
-                TankBody.gameObject.GetComponent<Renderer>().material.color = Yellow;
-                Turret.gameObject.GetComponent<Renderer>().material.color = Yellow;
+                Render.material.color = Yellow;
+                Render.material.color = Yellow;
                 if (gM.isPlayer3 == false)
                     isAi = true;
                 break;
             case 4:
                 controls = "p4_";
                 colour = "green";
-                TankBody.gameObject.GetComponent<Renderer>().material.color = Green;
-                Turret.gameObject.GetComponent<Renderer>().material.color = Green;
+                Render.material.color = Green;
+                Render.material.color = Green;
                 if (gM.isPlayer4 == false)
                     isAi = true;
                 break;
             case 5:
-                Turret.gameObject.GetComponent<Renderer>().material.color = Dead;
+                Render.material.color = Dead;
                 break;
             default:
                 break;

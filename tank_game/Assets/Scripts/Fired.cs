@@ -7,7 +7,8 @@ public class Fired : MonoBehaviour
     [Range(1,4)]
     public int Owner;
 
-    float timer = 5f, ShellSpeed = 10f;
+    float timer = 5f;
+    float ShellSpeed = 10f;
 
     public Material Blue, Red, Yellow, Green;
 
@@ -17,7 +18,7 @@ public class Fired : MonoBehaviour
 
     void Start()
     {
-        gM = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gM = GameManager.Instance;
         switch (Owner)
         {
             case 1:
@@ -57,23 +58,19 @@ public class Fired : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Player")
+        GameObject Other = collision.gameObject;
+        PlayerController Controller = Other.GetComponent<PlayerController>();
+
+        if (Other.tag == "Player" && Controller.Player != Owner && Controller.isAlive)
         {
-            if (collision.gameObject.GetComponent<s_playerController>().Player != Owner)
-            {
-                if (collision.gameObject.GetComponent<s_playerController>().isAlive == true)
-                {
+            Controller.Death();
+            Controller.Score++;
+            Controller.Lives--;
 
-                    collision.gameObject.GetComponent<s_playerController>().Death();
-                    OwnerTank.GetComponent<s_playerController>().Score++;
-                    collision.gameObject.GetComponent<s_playerController>().Lives--;
-
-                    //if (OwnerTank.GetComponent<s_playerController>().Score >= gM.ScoreLimit)
-                    //{
-                    //    gM.ScoreLimitAchived(Owner, OwnerTank.GetComponent<s_playerController>().Score);
-                    //}
-                }
-            }
+            //if (OwnerTank.GetComponent<s_playerController>().Score >= gM.ScoreLimit)
+            //{
+            //    gM.ScoreLimitAchived(Owner, OwnerTank.GetComponent<s_playerController>().Score);
+            //}
         }
         Destroy(gameObject);
     }

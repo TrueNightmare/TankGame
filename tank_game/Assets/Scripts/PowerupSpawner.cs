@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class s_powerup_spawner : MonoBehaviour
+public class PowerupSpawner : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()

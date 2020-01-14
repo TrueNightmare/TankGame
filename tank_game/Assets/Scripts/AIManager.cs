@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class s_AIManager : MonoBehaviour
+
+//Class needs rework, will NOT be getting it
+public class AIManager : MonoBehaviour
 {
     //NavMeshAgent agent;
 
